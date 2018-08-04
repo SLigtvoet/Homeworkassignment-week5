@@ -1,15 +1,13 @@
 import * as React from 'react'
 import { pizzaBase, pizzaSauce, pizzaToppings } from './pizzaModel'
-import { basename } from 'path';
 
 export default function PizzaConfiguratorPresenter(props) {
-    console.log(pizzaBase)
   return (<div>
         <div className="header">
             <h1>Pizza Configurator</h1>
         </div>
             <div className="baseSelector">
-                <h2>Select yourae</h2>
+                <h2>Select your base</h2>
                 <form>
                     <ul>
                         { 
@@ -38,7 +36,9 @@ export default function PizzaConfiguratorPresenter(props) {
                     <ul>
                     { 
                             pizzaToppings.map((topping, index) => {
-                              return <li><input type="checkbox" name={index} onChange={() => props.handleToppingChange(topping)} />{topping.type}{topping.price}</li>
+                              return <li><input type="checkbox" disabled={props.currentPizza.toppings.length === 3 && !props.currentPizza.toppings.find(stateTopping => {
+                                return stateTopping.type === topping.type
+                              })} name={index} onChange={() => props.handleToppingChange(topping)} />{topping.type}{topping.price}</li>
                             } ) 
                         }
                     </ul>
@@ -54,7 +54,7 @@ export default function PizzaConfiguratorPresenter(props) {
                 </form>
             </div>
             <div className="pizzaPrice">
-            <h4>Total pizza price: &euro;{props.currentPizza.price}</h4>
+            <h4>Total pizza price: &euro;{props.currentPizza.price.toFixed(2)}</h4>
             </div>
   </div>)
 }
