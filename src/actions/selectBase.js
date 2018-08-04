@@ -31,3 +31,9 @@ export function deliveryOption(quantifier){
         payload: quantifier
     }
 }
+
+export function resetSelection(){
+    return {
+        type: 'RESET_SELECTION'
+    }
+}

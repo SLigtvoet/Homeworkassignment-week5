@@ -1,3 +1,4 @@
+import {pizzaBase, pizzaSauce, pizzaToppings} from '../components/pizzaModel'
 const calculatePrice = (state) => {
   return (state.base.price + state.sauce.price + state.toppings.reduce((acc , topping) => {
     return acc + topping.price 
@@ -44,6 +45,8 @@ export default (state = initialState, action = {}) => {
         ...state,
         delivery: action.payload
       }
+      case 'RESET_SELECTION':
+      return initialState
     }
 
     return state
@@ -53,11 +56,13 @@ export default (state = initialState, action = {}) => {
 
   const initialState = {
     
-      base: { price : 0 },
-      sauce: { price : 0 },
+      base: pizzaBase[0],
+      sauce: pizzaSauce[0],
       toppings: [],
       price: 0,
       delivery: 1
     
   }
+
+  initialState.price=calculatePrice(initialState)
   

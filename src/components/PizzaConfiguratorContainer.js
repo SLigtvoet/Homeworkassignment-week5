@@ -1,7 +1,7 @@
 import * as React from 'react'
 import PizzaConfiguratorPresenter from './PizzaConfiguratorPresenter'
 import { connect } from 'react-redux'
-import { selectBase, selectSauce, selectTopping, calculatePrice, deliveryOption } from '../actions/selectBase'
+import { selectBase, selectSauce, selectTopping, calculatePrice, deliveryOption, resetSelection } from '../actions/selectBase'
 
 class PizzaConfiguratorContainer extends React.PureComponent {
 
@@ -25,12 +25,18 @@ class PizzaConfiguratorContainer extends React.PureComponent {
     this.props.calculatePrice()
   }
 
+  resetPizza = () => {
+    this.props.resetSelection()
+
+  }
+
   render() {
     return <PizzaConfiguratorPresenter currentPizza={this.props.currentPizza}
      handleBaseChange={this.handleBaseChange}
      handleSauceChange={this.handleSauceChange} 
      handleToppingChange={this.handleToppingChange}
-     handleDeliveryChange={this.handleDeliveryChange} />
+     handleDeliveryChange={this.handleDeliveryChange}
+     resetPizza={this.resetPizza} />
   }
 }
 
@@ -40,4 +46,4 @@ const mapStateToProps = (state) => {
     }
   }
 
-export default connect(mapStateToProps, { selectBase, selectSauce, selectTopping, calculatePrice, deliveryOption })(PizzaConfiguratorContainer)
+export default connect(mapStateToProps, { selectBase, selectSauce, selectTopping, calculatePrice, deliveryOption, resetSelection })(PizzaConfiguratorContainer)
